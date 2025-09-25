@@ -9,15 +9,16 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-# Install dependencies
+# Install dependencies first (better caching)
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy source code
+# Copy backend source
 COPY . .
 
-ENV PORT=8000
+# Sevalla injects $PORT, so we must bind to it
+ENV PORT=$PORT
 ENV PYTHONUNBUFFERED=1
 
-# Default run command (can be overridden in Sevalla if needed)
+# Default command (can be overridden in Sevalla Processes tab if needed)
 CMD ["uvicorn", "src:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4"]
