@@ -1,10 +1,15 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from typing import Optional
 
+
 class Settings(BaseSettings):
     DATABASE_URL: str
     JWT_SECRET: str
     JWT_ALGORITHM: str
+
+    REDIS_URL: str
+    REDIS_HOST: str
+    REDIS_PORT: int
 
     MAIL_USERNAME: str
     MAIL_PASSWORD: str
