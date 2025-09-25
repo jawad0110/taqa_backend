@@ -18,8 +18,8 @@ COPY . .
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 
-# Sevalla injects $PORT dynamically
+# Sevalla will inject $PORT
 EXPOSE 8000
 
-# Shell form CMD lets $PORT expand properly
-CMD uvicorn src:app --host 0.0.0.0 --port $PORT --workers 4 --proxy-headers --forwarded-allow-ips "*"
+# Use the wrapper script
+CMD ["./start.sh"]
