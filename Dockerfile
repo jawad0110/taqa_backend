@@ -1,6 +1,3 @@
-# ----------------------------
-# Backend Dockerfile (Python)
-# ----------------------------
 FROM python:3.11-slim
 
 # Install system dependencies
@@ -10,23 +7,21 @@ RUN apt-get update && apt-get install -y \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Set work directory
 WORKDIR /app
 
-# Install Python dependencies first (cache layer)
-COPY backend/requirements.txt .
+# Copy requirements first (so dependencies layer is cached)
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the backend source code
-COPY backend/ .
+# Copy the rest of the backend code
+COPY . .
 
 # Sevalla expects apps to listen on $PORT
 ENV PORT=8000
 ENV PYTHONUNBUFFERED=1
 
-# Create an entrypoint script to switch between processes
+# Entrypoint script for switching between web/worker/beat
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 
-# Default command → will be overridden in Sevalla process config
 CMD ["/docker-entrypoint.sh"]
