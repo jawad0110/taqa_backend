@@ -21,15 +21,14 @@ COPY . .
 # Create necessary directories
 RUN mkdir -p /app/static/images/products
 
-# Set environment variables
-ENV PORT=8080
+# Environment variables
+ENV PORT=$PORT
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV MAX_WORKERS=4
-ENV TIMEOUT=120
 
-# Expose the application port
-EXPOSE 8080
+# Expose Sevalla’s dynamic port
+EXPOSE $PORT
 
-# Default run command with optimized settings
-CMD ["uvicorn", "src:app", "--host", "0.0.0.0", "--port", "8080", "--workers", "4", "--timeout", "120", "--proxy-headers", "--forwarded-allow-ips", "*"]
+# Final command — Uvicorn only, no --timeout
+CMD ["uvicorn", "src:app", "--host", "0.0.0.0", "--port", "8080", "--workers", "4", "--proxy-headers", "--forwarded-allow-ips", "*"]
