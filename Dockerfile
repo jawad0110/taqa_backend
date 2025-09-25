@@ -22,13 +22,16 @@ COPY . .
 RUN mkdir -p /app/static/images/products
 
 # Environment variables
+ENV# Environment variables
 ENV PORT=$PORT
 ENV PYTHONUNBUFFERED=1
-ENV PYTHONDONTWRITEBYTECODE=1
 ENV MAX_WORKERS=4
+ENV TIMEOUT=300
+ENV BACKLOG=2048
+ENV KEEPALIVE=65
 
-# Expose Sevalla’s dynamic port
+# Expose port
 EXPOSE $PORT
 
-# Final command — Uvicorn only, no --timeout
-CMD ["uvicorn", "src:app", "--host", "0.0.0.0", "--port", "8080", "--workers", "4", "--proxy-headers", "--forwarded-allow-ips", "*"]
+# Final command with connection handling settings
+CMD ["uvicorn", "src:app", "--host", "0.0.0.0", "--port", "$PORT", "--workers", "4", "--timeout", "300", "--backlog", "2048", "--proxy-headers", "--forwarded-allow-ips", "*", "--limit-concurrency", "1000", "--limit-max-requests", "10000", "--keepalive", "65"]
