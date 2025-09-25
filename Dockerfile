@@ -9,19 +9,16 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-# Copy requirements first (so dependencies layer is cached)
+# Install dependencies first (cached)
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the backend code
+# Copy project source
 COPY . .
 
 # Sevalla expects apps to listen on $PORT
 ENV PORT=8000
 ENV PYTHONUNBUFFERED=1
 
-# Entrypoint script for switching between web/worker/beat
-COPY docker-entrypoint.sh /docker-entrypoint.sh
-RUN chmod +x /docker-entrypoint.sh
-
-CMD ["/docker-entrypoint.sh"]
+# Default command (will be overridden by Sevalla process config)
+CMD ["gunicorn", "taqa_backend.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "4", "--timeout", "120"]
