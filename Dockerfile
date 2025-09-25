@@ -18,20 +18,12 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy source code
 COPY . .
 
-# Create necessary directories
-RUN mkdir -p /app/static/images/products
-
-# Environment variables
-ENV# Environment variables
-ENV PORT=$PORT
+# Environment vars
 ENV PYTHONUNBUFFERED=1
-ENV MAX_WORKERS=4
-ENV TIMEOUT=300
-ENV BACKLOG=2048
-ENV KEEPALIVE=65
+ENV PYTHONDONTWRITEBYTECODE=1
 
-# Expose port
+# Sevalla injects $PORT dynamically
 EXPOSE $PORT
 
-# Final command with connection handling settings
-CMD ["uvicorn", "src:app", "--host", "0.0.0.0", "--port", "$PORT", "--workers", "4", "--timeout", "300", "--backlog", "2048", "--proxy-headers", "--forwarded-allow-ips", "*", "--limit-concurrency", "1000", "--limit-max-requests", "10000", "--keepalive", "65"]
+# Start FastAPI with Uvicorn
+CMD ["sh", "-c", "uvicorn src:app --host 0.0.0.0 --port $PORT --workers 4 --proxy-headers --forwarded-allow-ips '*'"]
