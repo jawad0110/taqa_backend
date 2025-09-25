@@ -1,4 +1,4 @@
-import aioredis
+import redis.asyncio as aioredis
 import json
 from typing import Optional, Any
 from src.config import Config
@@ -56,3 +56,4 @@ async def delete_cache_pattern(pattern: str) -> None:
     except Exception:
 
         pass
+
