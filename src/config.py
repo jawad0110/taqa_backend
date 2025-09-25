@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     USE_CREDENTIALS: bool = True
     VALIDATE_CERTS: bool = True
 
-    DOMAIN: str
+    DOMAIN: Optional[str] = None
     FRONTEND_URL: str
     ACCESS_TOKEN_EXPIRY_DAYS: int = 7
     REFRESH_TOKEN_EXPIRY_DAYS: int = 30
