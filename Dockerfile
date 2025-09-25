@@ -5,6 +5,8 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     libpq-dev \
     curl \
+    gcc \
+    python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -16,8 +18,18 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy source code
 COPY . .
 
+# Create necessary directories
+RUN mkdir -p /app/static/images/products
+
+# Set environment variables
 ENV PORT=8080
 ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV MAX_WORKERS=4
+ENV TIMEOUT=120
 
-# Default run command (can be overridden in Sevalla if needed)
-CMD ["uvicorn", "src:app", "--host", "0.0.0.0", "--port", "8080", "--workers", "4"]
+# Expose the application port
+EXPOSE 8080
+
+# Default run command with optimized settings
+CMD ["uvicorn", "src:app", "--host", "0.0.0.0", "--port", "8080", "--workers", "4", "--timeout", "120", "--proxy-headers", "--forwarded-allow-ips", "*"]
