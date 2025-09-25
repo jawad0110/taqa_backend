@@ -9,16 +9,15 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-# Install dependencies first (cached)
+# Install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy project source
+# Copy source code
 COPY . .
 
-# Sevalla expects apps to listen on $PORT
 ENV PORT=8000
 ENV PYTHONUNBUFFERED=1
 
-# Default command (will be overridden by Sevalla process config)
-CMD ["gunicorn", "taqa_backend.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "4", "--timeout", "120"]
+# Default run command (can be overridden in Sevalla if needed)
+CMD ["uvicorn", "src:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4"]
