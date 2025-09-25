@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Taqa Store - مرحباً بك في متجر طاقة</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', Arial, sans-serif !important;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #EDF2F7 !important;
+            color: #2D3748 !important;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+        .container {
+            max-width: 600px !important;
+            width: 100% !important;
+            margin: 0 auto !important;
+            background-color: white !important;
+            border-radius: 8px !important;
+            overflow: hidden !important;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+        }
+        .header {
+            background-color: #BFD4E9;
+            padding: 30px 20px !important;
+            text-align: center;
+            position: relative;
+        }
+        .logo {
+            margin: 0 auto 20px !important;
+            text-align: center;
+            padding: 0 20px !important;
+        }
+        .logo img {
+            width: 100px !important;
+            height: auto !important;
+            max-width: 100% !important;
+        }
+        h1 {
+            color: #4A5568;
+            margin: 20px 0;
+            font-size: 24px;
+        }
+        .content {
+            padding: 30px 20px !important;
+            text-align: center;
+            background: white;
+        }
+        .message-box {
+            background: #F7FAFC;
+            border-radius: 8px !important;
+            padding: 20px !important;
+            margin: 0 0 30px 0 !important;
+            text-align: center !important;
+        }
+        .message-box p {
+            margin: 12px 0 !important;
+            font-size: 16px !important;
+            line-height: 1.6 !important;
+            color: #4A5568 !important;
+        }
+        .message-box p.greeting {
+            font-weight: bold;
+            font-size: 20px !important;
+        }
+        [lang='ar'] {
+            font-family: 'Tajawal', Arial, sans-serif;
+            font-size: 20px;
+            line-height: 1.7;
+            font-weight: 500;
+        }
+        .button-container {
+            text-align: center !important;
+            padding: 20px 0 !important;
+            margin: 20px 0 !important;
+        }
+        .button {
+            display: inline-block !important;
+            background-color: #2563EB !important;
+            color: white !important;
+            text-decoration: none !important;
+            padding: 20px 40px !important;
+            border-radius: 8px !important;
+            margin: 0 !important;
+            font-weight: 600 !important;
+            font-size: 18px !important;
+            letter-spacing: 0.5px !important;
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2) !important;
+            transition: all 0.2s ease !important;
+            border: 2px solid #2563EB !important;
+        }
+        .button:hover {
+            background-color: #1D4ED8 !important;
+            box-shadow: 0 6px 8px rgba(37, 99, 235, 0.3) !important;
+            transform: translateY(-1px) !important;
+        }
+        .footer {
+            background-color: #BFD4E9 !important;
+            padding: 20px !important;
+            text-align: center !important;
+            font-size: 12px !important;
+            color: #4A5568 !important;
+        }
+        .footer p {
+            margin: 0 !important;
+            line-height: 1.5 !important;
+        }
+        @media screen and (max-width: 600px) {
+            .container {
+                width: 100% !important;
+                margin: 0 !important;
+                border-radius: 0 !important;
+            }
+            .content {
+                padding: 20px !important;
+            }
+            h1 {
+                font-size: 20px !important;
+            }
+            .message-box p {
+                font-size: 18px !important;
+            }
+            .button-container {
+                padding: 15px 0 !important;
+                margin: 15px 0 !important;
+            }
+            .button {
+                width: 100% !important;
+                padding: 18px 20px !important;
+                font-size: 18px !important;
+                border-radius: 8px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <img src="https://i.ibb.co/8gjftq91/Taqa-Logo.png" alt="Taqa Store Logo" style="width: 120px; height: auto;">
+            </div>
+            <h1>Welcome to Taqa Store | مرحباً بك في متجر طاقة</h1>
+        </div>
+        <div class="content">
+            <div class="message-box">
+                <p class="greeting" lang="ar">{{name}} مرحبًا</p>
+                <p lang="ar">!شكرًا لتسجيلك في متجر طاقة. نحن سعداء بانضمامك إلينا</p>
+            </div>
+            <div class="button-container">
+                <a href="{{store_url}}" class="button">Visit Store | زيارة المتجر</a>
+            </div>
+        </div>
+        <div class="footer">
+            <p lang="ar">جميع الحقوق محفوظة | © 2024 Taqa Store</p>
+        </div>
+    </div>
+</body>
+</html>

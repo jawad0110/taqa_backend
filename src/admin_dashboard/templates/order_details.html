@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تأكيد الطلب - طاقة</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Tajawal', Arial, sans-serif !important;
+            background-color: #EDF2F7 !important;
+            color: #2D3748 !important;
+            line-height: 1.7;
+        }
+        .email-wrapper {
+            width: 100%;
+            background-color: #EDF2F7;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px !important;
+            width: 100% !important;
+            margin: 0 auto !important;
+            background-color: white !important;
+            border-radius: 8px !important;
+            overflow: hidden !important;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+        }
+        .header {
+            background-color: #BFD4E9;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .logo img {
+            width: 100px !important;
+            height: auto !important;
+            margin-bottom: 20px;
+        }
+        .content {
+            padding: 30px 20px;
+            text-align: right;
+            background: white;
+        }
+        .content h1 {
+            color: #2D3748;
+            margin: 20px 0;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        .content p {
+            font-size: 18px;
+            margin: 10px 0;
+            color: #4A5568;
+        }
+        .address {
+            background: #F7FAFC;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-size: 16px;
+            color: #4A5568;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #E2E8F0;
+            text-align: right;
+        }
+        th {
+            background-color: #F7FAFC;
+            font-weight: 600;
+        }
+        .summary {
+            margin-top: 30px;
+        }
+        .summary td {
+            font-weight: bold;
+            padding: 10px 0;
+            font-size: 16px;
+        }
+        
+        .summary td.grand-total-label {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2D3748;
+        }
+        
+        .summary td.grand-total-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2D3748;
+        }
+        
+        .footer-message {
+            text-align: center;
+            line-height: 1.4; /* تصغير المسافة بين السطور */
+            font-size: 16px;
+            color: #4A5568;
+            margin-top: 30px;
+            font-size: 18px;
+        }
+        
+        .thank-you {
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .footer {
+            background-color: #BFD4E9;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #4A5568;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-wrapper">
+        <div class="container">
+            <div class="header">
+                <div class="logo">
+                    <img src="https://i.ibb.co/8gjftq91/Taqa-Logo.png" alt="شعار طاقة">
+                </div>
+                <h1>تأكيد طلبك</h1>
+            </div>
+            <div class="content">
+                <p><strong>مرحبًا {{ user_name }}،</strong></p>
+                <p>شكرًا لك على طلبك من متجر طاقة!</p>
+                <p><strong>رقم الطلب:</strong> {{ order_uid }}</p>
+
+                <div class="address">
+                    <strong>عنوان الشحن:</strong><br>
+                    {{ shipping_address }}
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>المنتج</th>
+                            <th>النوع</th>
+                            <th>سعر الوحدة</th>
+                            <th>الخصم</th>
+                            <th>الكمية</th>
+                            <th>الإجمالي الفرعي</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in items %}
+                        <tr>
+                            <td>{{ item.product_title }}</td>
+                            <td>{% if item.variant %}{{ item.variant }}{% else %}-{% endif %}</td>
+                            <td>{{ item.unit_price }} {{ currency }}</td>
+                            <td>{% if item.discount %}{{ item.discount }}{% else %}-{% endif %}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ item.subtotal }} {{ currency }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <table class="summary">
+                    <tr>
+                        <td>المجموع الفرعي:</td>
+                        <td>{{ subtotal }} {{ currency }}</td>
+                    </tr>
+                    <tr>
+                        <td>رسوم الشحن:</td>
+                        <td>{{ shipping_fee }} {{ currency }}</td>
+                    </tr>
+                    <tr>
+                        <td class="grand-total-label">المجموع:</td>
+                        <td class="grand-total-value">{{ total }} {{ currency }}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="footer-message">
+                <p>إذا كان لديك أي استفسار، لا تتردد بالتواصل مع فريق الدعم لدينا.</p>
+                <br>
+                <p class="thank-you">شكرًا لتسوقك مع طاقة!</p>
+            </div>
+            
+            <div class="footer">
+                <p>© 2024 طاقة. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
