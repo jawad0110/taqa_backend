@@ -5,7 +5,7 @@ class Settings(BaseSettings):
     DATABASE_URL : str
     JWT_SECRET : str
     JWT_ALGORITHM : str
-    REDIS_URL : str = "redis://:taqa0778@taqastore-sjz77-redis-master.taqastore-sjz77.svc.cluster.local:6379/0"
+    REDIS_URL : str = "rediss://:taqa0778@taqastore-sjz77-redis-master.taqastore-sjz77.svc.cluster.local:6379/0"
     REDIS_HOST : str
     REDIS_PORT :str
     
