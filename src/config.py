@@ -19,7 +19,7 @@ class Settings(BaseSettings):
     MAIL_SSL_TLS : bool = False
     USE_CREDENTIALS : bool = True
     VALIDATE_CERTS : bool = True
-    DOMAIN: Optional[str] = None
+    DOMAIN: str
     FRONTEND_URL : str
     ACCESS_TOKEN_EXPIRY_DAYS : int = 7
     REFRESH_TOKEN_EXPIRY_DAYS : int = 30
