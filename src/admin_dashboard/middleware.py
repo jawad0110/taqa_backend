@@ -91,7 +91,7 @@ def register_middleware(app: FastAPI):
         return response
     
     # Configure CORS middleware
-    origins = ["http://192.168.0.10:8000", "http://localhost:8000", "http://localhost:3000", "http://192.168.0.10:3000", "http://localhost:3000", "http://192.168.1.18:8000", "http://192.168.1.16:3000", "http://127.0.0.1:8000", "http://localhost:3000", "http://172.31.48.1:3000"]
+    origins = ["http://192.168.0.10:8000", "http://localhost:8000", "http://localhost:3000", "https://taqafrontend-k4neg.sevalla.app/", "http://192.168.1.18:8000", "http://127.0.0.1:8000"]
     
     # Allowed headers for CORS
     allowed_headers = [
